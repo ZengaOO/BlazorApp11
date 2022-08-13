@@ -1,6 +1,6 @@
 ﻿@page "/shopinglist"
 @using BlazorApp11.Data
-using BlazorApp11.Data
+<PageTitle>@title</PageTitle>
 
 <h3>ShopingList</h3>
 <input plaseholder = "Grocery Name" @bind="groceryName"/>
@@ -17,7 +17,8 @@ using BlazorApp11.Data
 
 
 @code {
-          private string? groceryName;
+    private string title = "Our Groceries";
+    private string? groceryName = "";
           private float groceryPrice;
           private List<Grocery> groceries = new();
 
