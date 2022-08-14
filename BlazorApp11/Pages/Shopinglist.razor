@@ -5,15 +5,21 @@
 <h3>ShopingList</h3>
 <input plaseholder = "Grocery Name" @bind="groceryName"/>
 <input plaseholder = "Grocery Price"  @bind="groceryPrice"/>
-<button @onclick="AddGrocery">Add Grocery</button>
-
-<ul>
+<button @onclick="AddGrocery">Add Grocery</button> 
+<table class="table table-sm">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
     @foreach(var grocery in groceries)
     {
-       <li>@grocery.Name -- @grocery.Price</li>
+       <Item GroceryItem="@grocery" 
+           OnGroceryPriceIncreased="OnGroceryPriceIncreased" />
     }
-</ul>
-<h1>Total (@sum))</h1>
+</table>
+
+<h1>Total (@groceries.Sum(grocery=> grocery.Price))</h1>
 
 
 @code {
@@ -28,14 +34,24 @@
         if(!string.IsNullOrWhiteSpace(groceryName) && groceryPrice > 0)
         {
             groceries.Add(new Grocery
-               {
-                 Name = groceryName,
-                 Price =groceryPrice
-               });
-            sum += groceryPrice;
+            {
+                  Name = groceryName,
+                  Price =groceryPrice
+            });
+
             groceryName = string.Empty;
             groceryPrice = 0;
-           }
-       }
+        }
+        UpdateTotalAmount();
+    }
 
+    public void UpdateTotalAmount()
+    {
+        sum = groceries.Sum(x => x.Price);
+
+    }
+    public void OnGroceryPriceIncreased()
+    {
+        UpdateTotalAmount();
+    }
 }
