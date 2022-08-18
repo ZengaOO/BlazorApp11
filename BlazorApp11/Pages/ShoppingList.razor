@@ -1,8 +1,9 @@
-﻿@page "/shopinglist"
+﻿@page "/shoppinglist"
+@layout ShoppingListLayout
 @using BlazorApp11.Data
 <PageTitle>@title</PageTitle>
 
-<h3>ShopingList</h3>
+<h3>Shoppinglist</h3>
 <EditForm Model="@grocery" OnSubmit="AddGrocery">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -16,7 +17,7 @@
     </p>
     <p>
         <label>
-            Name:
+            Price:
             <InputNumber @bind-Value="grocery.Price" />
 
         </label>
@@ -44,7 +45,7 @@
     private string title = "Our Groceries";
     private string groceryName = "";
     private float groceryPrice;
-    private Grocery grocery;// = new Grocery();
+    private Grocery grocery = new Grocery();
     private List<Grocery> groceries = new();
 
     private void AddGrocery()
